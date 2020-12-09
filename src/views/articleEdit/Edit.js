@@ -51,7 +51,6 @@ class Edit extends Component {
         }
       }
     }
-    console.log(result);
     this.setState({
       resToken: result
     })

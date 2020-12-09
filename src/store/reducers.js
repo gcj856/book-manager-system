@@ -1,42 +1,38 @@
 import {
-  CHOOSE_BOX,
-  CHANGE_USER_INFO,
+  SETUSERINFO,
+  LOGOUT,
 } from './actions';
 
 const initState = {
-  logBox: { // 登录框
-    name: '登录',
-    show: false,
-  },
-  userInfo: null, // 用户信息
+  getToken: '',
+  userInfo: {
+    name: 'test',
+    password: '1111'
+  }, // 用户信息
 };
-
-function logBox(state = initState.logBox, action) {
-  switch (action.type) {
-    case CHOOSE_BOX:
-      return {
-        name: action.name,
-        show: action.show,
-      };
-    default:
-      return state;
-  }
-}
 
 function userInfo(state = initState.userInfo, action) {
   switch (action.type) {
-    case CHANGE_USER_INFO:
+    case SETUSERINFO:
       if (!action.info) {
         localStorage.userInfo = '';
       } else {
         localStorage.userInfo = JSON.stringify(action.info);
       }
-      // console.log(action.info)
       return action.info;
     default:
       return state;
   }
 }
 
+function clearUserInfo(state = initState.userInfo, action) {
+  switch (action.type) {
+    case LOGOUT:
+      localStorage.userInfo = '';
+      return null;
+    default:
+      return state;
+  }
+}
 
-export default { logBox, userInfo };
+export default { userInfo, clearUserInfo };
